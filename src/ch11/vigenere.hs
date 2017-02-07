@@ -1,6 +1,7 @@
 module Cipher.Vigenere where
 
 import Data.Char
+import Data.List
 
 keyword  = "ALLY"
 message  = "MEET AT DAWN"
@@ -9,13 +10,10 @@ message  = "MEET AT DAWN"
 -- encoded  = "MPPR AE OYWY"
 
 vignere :: String -> String -> String
-vignere message keyword = go message key
+vignere message keyword = encoded
   where
     key = makeKey message keyword
-    go [] _ = []
-    go (x:xs) (y:ys)
-      | x == ' '  = ' ' : go xs ys
-      | otherwise = shiftByCharBase y x : go xs ys
+    encoded = zipWith shiftByCharBase message key
 
 
 makeKey :: String -> String -> String
@@ -29,8 +27,9 @@ makeKey message keyword = go message keyCycle
 
 
 shiftByCharBase :: Char -> Char -> Char
-shiftByCharBase x y =
-    shift (toCharBase . ord $ x) y
+shiftByCharBase ' ' _ = ' '
+shiftByCharBase char key =
+    shift (toCharBase . ord $ key) char
 
 
 -- caesar cipher from ch9
