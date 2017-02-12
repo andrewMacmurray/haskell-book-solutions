@@ -1,6 +1,7 @@
 module Phone where
 
 import Data.Char
+import Data.List
 
 data Button = Button Digit String deriving (Show)
 type Digit = Char
@@ -37,11 +38,19 @@ convo =
   , "Haha thanks just making sure rofl ur turn"
   ]
 
+
+-- forwards pipe operator (like in elm)
+(|>) :: a -> (a -> b) -> b
+x |> f = f x
+
 containsCharacter :: Char -> Button -> Bool
 containsCharacter x (Button y ys) = (toLower x) `elem` ys
 
 findButton :: Phone -> Char -> Button
-findButton (Phone buttons) x = head . filter (containsCharacter x) $ buttons
+findButton (Phone buttons) x =
+  buttons
+    |> filter (containsCharacter x)
+    |> head
 
 numberOfPresses :: String -> Char -> Presses
 numberOfPresses [] _ = 0
@@ -50,13 +59,52 @@ numberOfPresses (x:xs) y = if x == y
   else 1 + numberOfPresses xs y
 
 reverseTaps :: Phone -> Char -> [(Digit, Presses)]
-reverseTaps phone x =
-  let
-    checkUppercase = if isUpper x then [('*', 1)] else []
+reverseTaps phone x = uppercaseTap ++ digitTap
+  where
     (Button digit chars) = findButton phone x
-  in
-    checkUppercase ++ [(digit, numberOfPresses chars x)]
+    uppercaseTap = if isUpper x then [('*', 1)] else []
+    digitTap = [(digit, numberOfPresses chars x)]
 
-cellPhonesDead :: Phone -> String -> [(Digit, Presses)]
-cellPhonesDead phone =
-  foldl (++) [] . map (reverseTaps phone)
+flatten :: [[a]] -> [a]
+flatten = foldl (++) []
+
+tapsInSentence :: Phone -> String -> [(Digit, Presses)]
+tapsInSentence phone =
+  flatten . map (reverseTaps phone)
+
+conversationTaps :: [String] -> [(Digit, Presses)]
+conversationTaps xs = xs
+    |> map (tapsInSentence phone)
+    |> flatten
+
+fingertaps :: [(Digit, Presses)] -> Presses
+fingertaps = foldr (\(_, n) x -> x + n) 0
+
+baseCharCount :: [(Char, Presses)]
+baseCharCount = [ (x, 0) | x <- validCharacters ]
+  where
+    validCharacters = ['a'..'z'] ++ ['0'..'9'] ++ "."
+
+addToCharCount x (y, n) =
+  if toLower x == y
+  then (y, n + 1)
+  else (y, n)
+
+countSingleChar :: (Char, Presses) -> String -> (Char, Presses)
+countSingleChar = foldr addToCharCount
+
+sentenceCharCount xs =
+  map (\x -> countSingleChar x xs) baseCharCount
+
+popularLetter :: String -> Char
+popularLetter xs =
+  xs
+    |> sentenceCharCount
+    |> maximumBy (\(x, a) (y, b) -> compare a b)
+    |> (\(c, n) -> c)
+
+overallPopularLetter :: [String] -> Char
+overallPopularLetter xs =
+  xs
+    |> foldl (++) ""
+    |> mostPopularLetter
