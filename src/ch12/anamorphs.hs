@@ -1,6 +1,6 @@
 module Anamorphs where
 
--- anamporhisms : where structures are build up
+-- anamporhisms : where structures are built up
 -- catamorphisms : where structures are broken down
 
 -- iterator = myIterate (+1) 0
