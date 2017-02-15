@@ -3,6 +3,18 @@ module Cipher.Vigenere where
 import Data.Char
 import Data.List
 
+
+-- prompts the user to enter a message and keyword
+-- shows the encoded message on screen
+main :: IO ()
+main = do
+  putStrLn "enter your message: "
+  message <- getLine
+  putStrLn "enter a key phrase: "
+  key     <- getLine
+  putStrLn $ "Your encrypted message is: " ++ (vignere message key)
+
+
 keyword  = "ALLY"
 message  = "MEET AT DAWN"
 
