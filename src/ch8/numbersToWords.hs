@@ -1,4 +1,4 @@
-module WordNumber where
+module Ch8.NumbersToWords where
 
 import Data.List (intersperse, intercalate, map)
 
@@ -15,6 +15,7 @@ digitToWord n =
     7 -> "seven"
     8 -> "eight"
     9 -> "nine"
+    _ -> "zero"
 
 digits :: Int -> [Int]
 digits n
