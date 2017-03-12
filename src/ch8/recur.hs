@@ -1,4 +1,4 @@
-module Recur where
+module Ch8.Recur where
 
 fac :: Integral a => a -> a
 fac 1 = 1
@@ -12,9 +12,9 @@ fib n = fib (n - 1) + fib (n - 2)
 data DividedResult =
       Result Integer
     | DividedByZero
-  deriving (Show)
+  deriving (Eq, Show)
 
-dividedBy :: Int -> Int -> DividedResult
+dividedBy :: Integer -> Integer -> DividedResult
 dividedBy _ 0 = DividedByZero
 dividedBy num denom = go (abs num) (abs denom) 0
   where

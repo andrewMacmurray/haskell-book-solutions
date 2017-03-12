@@ -1,4 +1,4 @@
-module Spec.Idempotence where
+module Ch14.Idempotence where
 
 import Test.QuickCheck
 import Data.Char
