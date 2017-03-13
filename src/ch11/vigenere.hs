@@ -1,11 +1,13 @@
-module Cipher.Vigenere where
+module Ch11.Vigenere where
 
+import Ch9.Caesar
 import Data.Char
 import Data.List
 
 
 -- prompts the user to enter a message and keyword
 -- shows the encoded message on screen
+
 main :: IO ()
 main = do
   putStrLn "enter your message: "
@@ -15,17 +17,31 @@ main = do
   putStrLn $ "Your encrypted message is: " ++ (vignere message key)
 
 
-keyword  = "ALLY"
-message  = "MEET AT DAWN"
+-- keyword  = "ALLY"
+-- message  = "MEET AT DAWN"
 
 -- key      = "ALLY AL LYAL"
 -- encoded  = "MPPR AE OYWY"
 
+data Direction =
+    Forwards
+  | Backwards
+  deriving (Eq)
+
+
+unvignere :: String -> String -> String
+unvignere = vig Backwards
+
 vignere :: String -> String -> String
-vignere message keyword = encoded
+vignere = vig Forwards
+
+vig :: Direction -> String -> String -> String
+vig _ "" _ = ""
+vig _ x "" = x
+vig direction body keyword = encoded
   where
-    key = makeKey message keyword
-    encoded = zipWith shiftByCharBase message key
+    key = makeKey body keyword
+    encoded = zipWith (shiftChar direction) body key
 
 
 makeKey :: String -> String -> String
@@ -38,29 +54,11 @@ makeKey message keyword = go message keyCycle
       | otherwise =   y : go xs ys
 
 
-shiftByCharBase :: Char -> Char -> Char
-shiftByCharBase ' ' _ = ' '
-shiftByCharBase char key =
-    shift (toCharBase . ord $ key) char
-
-
--- caesar cipher from ch9
-
-lowerBase = 97
-upperBase = 65
-
-toCharBase :: Int -> Int
-toCharBase x = if x > 90
-  then x - lowerBase
-  else x - upperBase
-
-applyOffset :: Int -> Int -> Int
-applyOffset shift x =
-  mod (x + shift) 26
-
-shift n =
-    chr
-  . (+) upperBase
-  . applyOffset n
-  . toCharBase
-  . ord
+shiftChar :: Direction -> Char -> Char -> Char
+shiftChar _ ' ' _ = ' '
+shiftChar direction char key = shift convert char
+  where
+    f = toCharBase . ord $ key
+    convert = case direction of
+      Forwards -> f
+      Backwards -> negate f
