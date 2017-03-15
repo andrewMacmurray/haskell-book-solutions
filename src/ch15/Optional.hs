@@ -38,17 +38,18 @@ newtype First' a =
 
 
 emptyFirst = First' { getFirst' = Nada }
+firstOnly x = First' { getFirst' = Only x }
 
 instance Monoid (First' a) where
   mempty = emptyFirst
   mappend (First' { getFirst' = Nada })
           (First' { getFirst' = Nada })   = emptyFirst
   mappend (First' { getFirst' = Nada })
-          (First' { getFirst' = Only x }) = First' { getFirst' = Only x }
+          (First' { getFirst' = Only x }) = firstOnly x
   mappend (First' { getFirst' = Only x })
-          (First' { getFirst' = Nada })   = First' { getFirst' = Only x }
+          (First' { getFirst' = Nada })   = firstOnly x
   mappend (First' { getFirst' = Only x })
-          (First' { getFirst' = Only _ }) = First' { getFirst' = Only x }
+          (First' { getFirst' = Only _ }) = firstOnly x
 
 
 genFirst :: Arbitrary a => Gen (First' a)
