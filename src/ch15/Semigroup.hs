@@ -322,8 +322,8 @@ type AccumBothAssoc =
 semigroupAssoc :: (Eq m, Semigroup m) => m -> m -> m -> Bool
 semigroupAssoc a c b = (a <> (b <> c)) == ((a <> b) <> c)
 
-main :: IO ()
-main = do
+sSpec :: IO ()
+sSpec = do
   quickCheck (semigroupAssoc :: TrivialAssoc)
   quickCheck (semigroupAssoc :: IdentityAssoc)
   quickCheck (semigroupAssoc :: TwoAssoc)
