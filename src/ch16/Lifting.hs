@@ -10,7 +10,7 @@ c :: Int -> Int
 c = (*2) . (\x -> x - 2)
 
 d :: Int -> String
-d = ((return '1' ++) . show) <$> (\x -> [x, 1..3])
+d =  (return '1' ++) . show . (\x -> [x, 1..3])
 
 e :: IO Integer
 e = let ioi = readIO "1" :: IO Integer
