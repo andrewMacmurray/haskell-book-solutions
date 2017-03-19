@@ -10,7 +10,7 @@ data Possibly a =
   deriving (Eq, Show)
 
 instance Functor Possibly where
-  fmap _ LolNope = LolNope
+  fmap _ LolNope     = LolNope
   fmap f (Yeppers a) = Yeppers (f a)
 
 possiblyGen :: Arbitrary a => Gen (Possibly a)
