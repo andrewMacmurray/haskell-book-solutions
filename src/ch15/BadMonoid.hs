@@ -21,10 +21,10 @@ instance Monoid Bull where
 type BullMappend = Bull -> Bull -> Bull -> Bool
 
 
--- these tests will fail as Bull monoid instance is invalid 
+-- these tests will fail as Bull monoid instance is invalid
 
-main :: IO ()
-main = do
+bullSpec :: IO ()
+bullSpec = do
   quickCheck (monoidAssoc :: BullMappend)
   quickCheck (monoidLeftIdentity :: Bull -> Bool)
   quickCheck (monoidRightIdentity :: Bull -> Bool)

@@ -1,4 +1,4 @@
-module Ch17.Validate where
+module Ch17.MakePerson where
 
 validateLength :: Int -> String -> Maybe String
 validateLength maxLen s =
