@@ -1,4 +1,4 @@
-module Excercises where
+module Exercises where
 
 tensDigit :: Integral a => a -> a
 tensDigit x = d

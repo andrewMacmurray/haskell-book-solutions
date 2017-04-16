@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleInstances #-}
 
-module Ch16.Excercises where
+module Ch16.Exercises where
 
 data Sum a b =
     First b
