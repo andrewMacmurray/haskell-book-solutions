@@ -1,4 +1,4 @@
-module Excercises where
+module Exercises where
 
 -- id :: a -> a
 -- a has the kind *

@@ -1,4 +1,4 @@
-module Ch14.Excercises where
+module Ch14.Exercises where
 
 import Test.QuickCheck
 import Data.List (sort)
