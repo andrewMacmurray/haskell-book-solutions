@@ -1,6 +1,5 @@
 module Ch17.List where
 
-import Control.Applicative
 import Test.QuickCheck
 import Test.QuickCheck.Checkers
 import Test.QuickCheck.Classes

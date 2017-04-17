@@ -1,6 +1,5 @@
 module Ch17.Lookups where
 
-import Control.Applicative
 import Data.List
 
 xs = [1..3]

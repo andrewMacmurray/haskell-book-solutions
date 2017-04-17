@@ -29,6 +29,27 @@ cowFromString' n a w =
              (noNegative a)
              (noNegative w)
 
+
+-- With Maybe Monad
+
+cowFromString'' :: String -> Int -> Int -> Maybe Cow
+cowFromString'' n a w =
+  noEmpty n >>=
+  \name ->
+    noNegative a >>=
+  \age ->
+    noNegative w >>=
+  \weight ->
+    return $ Cow name age weight
+
+cowFromString''' :: String -> Int -> Int -> Maybe Cow
+cowFromString''' n a w = do
+  name <- noEmpty n
+  age <- noNegative a
+  weight <- noNegative w
+  return $ Cow n a w
+
+
 -- fixer upper
 x = const <$> Just "hello" <*> Just "world"
 y = (,,,) <$> Just 90
