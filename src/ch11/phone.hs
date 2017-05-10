@@ -2,6 +2,7 @@ module Phone where
 
 import Data.Char
 import Data.List
+import Utils ((|>))
 
 data Button = Button Digit String deriving (Show)
 type Digit = Char
@@ -37,11 +38,6 @@ convo =
   , "Lol ya"
   , "Haha thanks just making sure rofl ur turn"
   ]
-
-
--- forwards pipe operator (like in elm)
-(|>) :: a -> (a -> b) -> b
-x |> f = f x
 
 containsCharacter :: Char -> Button -> Bool
 containsCharacter x (Button y ys) = (toLower x) `elem` ys

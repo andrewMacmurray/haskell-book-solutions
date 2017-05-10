@@ -1,5 +1,6 @@
 module Palindrome where
 
+import Utils ((|>))
 import Control.Monad
 import System.Exit (exitSuccess)
 import Data.Char
@@ -21,5 +22,3 @@ isPalindrome xs =
     |> map toLower
     |> filter (flip elem ['a'..'z'])
     |> (\xs -> xs == reverse xs)
-  where
-    (|>) x f = f x

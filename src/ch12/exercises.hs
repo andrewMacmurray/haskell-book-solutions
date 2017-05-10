@@ -1,5 +1,7 @@
 module Exercises where
 
+import Utils ((|>))
+
 -- id :: a -> a
 -- a has the kind *
 
@@ -32,8 +34,6 @@ countTheBeforeVowel xs =
   case beforeVowel xs of
     Nothing     -> 1 + countTheBeforeVowel (drop 4 xs)
     Just (y:ys) -> 0 + countTheBeforeVowel ys
-
-x |> f = f x
 
 countInWord :: (Char -> Bool) -> String -> Integer
 countInWord f xs =
