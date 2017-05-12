@@ -97,10 +97,10 @@ popularLetter xs =
   xs
     |> sentenceCharCount
     |> maximumBy (\(x, a) (y, b) -> compare a b)
-    |> (\(c, n) -> c)
+    |> fst
 
 overallPopularLetter :: [String] -> Char
 overallPopularLetter xs =
   xs
     |> foldl (++) ""
-    |> mostPopularLetter
+    |> popularLetter

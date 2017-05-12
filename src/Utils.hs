@@ -1,5 +1,5 @@
 module Utils where
 
--- forwards pipe operator (like in elm)
+-- elm style forwards pipe operator
 (|>) :: a -> (a -> b) -> b
 x |> f = f x
