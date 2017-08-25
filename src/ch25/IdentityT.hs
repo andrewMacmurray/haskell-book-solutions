@@ -2,8 +2,6 @@
 
 module Ch25.IdentityT where
 
-import Control.Monad
-
 
 newtype Identity a =
   Identity { runIdentity :: a }
