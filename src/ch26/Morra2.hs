@@ -78,9 +78,10 @@ handleInvalidGuess rawGuess =
 
 
 resetScreen :: StateT Game IO ()
-resetScreen = do
-  io $ cursorUpLine 10
-  io clearScreen
+resetScreen = io $ do
+  cursorUpLine 10
+  clearScreen
+
 
 handleNextGuess :: Game -> StateT Game IO ()
 handleNextGuess game
