@@ -14,7 +14,7 @@ main = do
   message <- getLine
   putStrLn "enter a key phrase: "
   key     <- getLine
-  putStrLn $ "Your encrypted message is: " ++ (vignere message key)
+  putStrLn $ "Your encrypted message is: " ++ (vigenere message key)
 
 
 -- keyword  = "ALLY"
@@ -29,11 +29,11 @@ data Direction =
   deriving (Eq)
 
 
-unvignere :: String -> String -> String
-unvignere = vig Backwards
+unvigenere :: String -> String -> String
+unvigenere = vig Backwards
 
-vignere :: String -> String -> String
-vignere = vig Forwards
+vigenere :: String -> String -> String
+vigenere = vig Forwards
 
 vig :: Direction -> String -> String -> String
 vig _ "" _ = ""
