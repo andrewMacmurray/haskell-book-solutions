@@ -3,6 +3,7 @@ module Ch26.Morra1 where
 import System.Random (randomRIO)
 import Control.Monad.Trans.State
 import Control.Monad.IO.Class
+import Control.Applicative (liftA2)
 
 -- two players, human and computer
 -- each one is either odd or even
@@ -90,8 +91,10 @@ handleGuess (Right x) y game
 
 
 addPoint :: Player -> Game -> Game
-addPoint Human    g@(Game { human    = x }) = g { human    = x + 1 }
-addPoint Computer g@(Game { computer = x }) = g { computer = x + 1 }
+addPoint Human    = liftA2 Game (inc human) computer
+addPoint Computer = liftA2 Game human (inc computer)
+
+inc = fmap (+1)
 
 
 humanGuess :: String -> Either String Int

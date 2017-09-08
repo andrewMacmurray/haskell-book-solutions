@@ -3,6 +3,7 @@ module Ch26.Morra2 where
 import Control.Monad.Trans.State.Lazy
 import Control.Monad.IO.Class
 import System.Console.ANSI
+import Control.Applicative (liftA2)
 
 data Player =
     Player1
@@ -117,8 +118,10 @@ handleGuess (Right x) (Right y) game
 
 
 addPoint :: Player -> Game -> Game
-addPoint Player1 g@(Game { p1 = x }) = g { p1 = x + 1 }
-addPoint Player2 g@(Game { p2 = x }) = g { p2 = x + 1 }
+addPoint Player1 = liftA2 Game (inc p1) p2
+addPoint Player2 = liftA2 Game p1 (inc p2)
+
+inc = fmap (+1)
 
 
 parseGuess :: String -> Either String Int
