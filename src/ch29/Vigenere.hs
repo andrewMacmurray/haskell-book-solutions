@@ -53,8 +53,7 @@ direction (x:xs) =
     _    -> Left  directionMessage'
 
 successMessage :: Direction -> String
-successMessage Forwards  = "Here is your encrypted message"
-successMessage Backwards = "Here is your decrypted message"
+successMessage d  = "Here is your " ++ show d ++ "ed message"
 
 directionMessage :: String
 directionMessage = "Please specify a direction either -d or -e"
@@ -63,4 +62,4 @@ directionMessage' :: String
 directionMessage' = "Invalid direction, please specifiy either -d or -e"
 
 newline :: String -> String
-newline x = x `mappend` "\n"
+newline x = x ++ "\n"
