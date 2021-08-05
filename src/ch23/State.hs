@@ -18,8 +18,9 @@ instance Applicative (Moi s) where
   pure a = Moi (\s -> (a, s))
   (<*>) :: Moi s (a -> b) -> Moi s a -> Moi s b
   (<*>) (Moi sab) (Moi fa) =
-    Moi (\s -> let (a, s1) = fa s
-                   (fab, s2) = sab s1
+    Moi (\s -> let 
+                (fab, s1) = sab s
+                (a, s2) = fa s1
                 in (fab a, s2))
 
 
